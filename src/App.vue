@@ -1,18 +1,28 @@
+<script setup>
+import { onMounted } from 'vue';
+
+
+const fetchImages = async () => {
+  const response = await fetch(`https://www.reddit.com/r/aww/top/.json?t=all`)
+  const jsonResponse = await response.json()
+  const data = jsonResponse.data.children
+  console.log(data)
+}
+
+onMounted(() => {
+  fetchImages()
+})
+
+</script>
+
+
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    Image Carousel
+    <div class="border-2 border-teal-600 w-full h-full"></div>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
 <style>
 #app {
