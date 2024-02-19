@@ -1,15 +1,16 @@
 <script setup>
 import { ref , onMounted} from 'vue';
 
-const imageData = ref([])
+const imageUrls = ref([])
+const currentIndex = ref(0)
 
 const fetchData = async () => {
   try {
     const response = await fetch('https://www.reddit.com/r/aww/top/.json?t=all')
     const jsonResponse = await response.json()
-    const data = jsonResponse.data.children.map(item => item.data)
+    const data = jsonResponse.data.children.map(item => item.data.thumbnail)
    
-    imageData.value = data
+    imageUrls.value = data
   } catch (error) {
     console.error('Error catching data: ', error)
   }
@@ -18,19 +19,44 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData()
 })
-</script>
 
+const goToNextSlide = () => {
+  currentIndex.value++
+}
+
+const goToPreviousSlide = () => {
+  currentIndex.value--
+}
+</script>
 
 <template>
   <div>
-    Image Carousel
-    <div>
+    <h1 class="mb-8">Image Carousel</h1>
+    <div class="relative w-[35rem] m-auto">
       <div 
-        v-for="(item, index) in imageData"
+        v-for="(item, index) in imageUrls"
         :key="index"
+        :class="[
+          'm-auto w-[9rem] relative',
+          {'invisible': index !== currentIndex},
+          {'visible': index === currentIndex}
+        ]"
       >
-        <img :src="item.url" />
+        <img 
+          :src="item" 
+          class="absolute"
+        />
       </div>
+      <button
+        @click="goToPreviousSlide"
+        class="absolute left-[5rem] top-[3rem]"
+      >
+        Previous</button>
+      <button 
+        @click="goToNextSlide"
+        class="absolute right-[5rem] top-[3rem]"
+      >
+        Next</button>
     </div>
   </div>
 </template>
