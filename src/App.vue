@@ -21,21 +21,11 @@ onMounted(() => {
 })
 
 const goToNextSlide = () => {
-  if (currentIndex.value < imageUrls.value.length ) {
-    if (currentIndex.value === imageUrls.value.length - 1) {
-      currentIndex.value = 0
-    } else {
-      currentIndex.value++
-    }
-  }
+  currentIndex.value = (currentIndex.value + 1) % imageUrls.value.length;
 }
 
 const goToPreviousSlide = () => {
-  if (currentIndex.value === 0) {
-    currentIndex.value = imageUrls.value.length - 1
-  } else {
-    currentIndex.value--;
-  }
+  currentIndex.value = (currentIndex.value - 1 + imageUrls.value.length) % imageUrls.value.length;
 }
 </script>
 
