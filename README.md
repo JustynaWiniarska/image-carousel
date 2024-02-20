@@ -1,25 +1,7 @@
-# image-carousel
+# Image Carousel in Vue3
 
-## Project setup
-```
-npm install
-```
+#### Requirements
+- Images are fetched from an endpoint.
+- The slideshow wraps around - after the last image the first one is shown.
+- The carousel cycles through images displaying a new image every 3 seconds.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# image-carousel
