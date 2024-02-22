@@ -1,8 +1,9 @@
 <script setup>
-import { ref , onMounted} from 'vue';
+import { ref , onMounted, onBeforeUnmount} from 'vue';
 
-const imageUrls = ref([])
-const currentIndex = ref(0)
+const imageUrls = ref([]);
+const currentIndex = ref(0);
+let intervalId = null;
 
 const fetchData = async () => {
   try {
@@ -17,7 +18,10 @@ const fetchData = async () => {
 }
 
 onMounted(() => {
-  fetchData()
+  fetchData();
+  intervalId = setInterval(() => {
+    goToNextSlide()
+  }, 3000);
 })
 
 const goToNextSlide = () => {
@@ -27,6 +31,10 @@ const goToNextSlide = () => {
 const goToPreviousSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + imageUrls.value.length) % imageUrls.value.length;
 }
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId)
+})
 </script>
 
 <template>
