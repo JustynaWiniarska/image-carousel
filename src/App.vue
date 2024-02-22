@@ -19,17 +19,25 @@ const fetchData = async () => {
 
 onMounted(() => {
   fetchData();
+  startInterval();
+})
+
+const startInterval = () => {
   intervalId = setInterval(() => {
     goToNextSlide()
-  }, 3000);
-})
+  }, 3000)
+}
 
 const goToNextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % imageUrls.value.length;
+  clearInterval(intervalId);
+  startInterval();
 }
 
 const goToPreviousSlide = () => {
   currentIndex.value = (currentIndex.value - 1 + imageUrls.value.length) % imageUrls.value.length;
+  clearInterval(intervalId);
+  startInterval();
 }
 
 onBeforeUnmount(() => {
